@@ -1,16 +1,77 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
+  <div class="container">
+    <form @submit.prevent="addTodo">
+        <div class="form_section">
+          <div class="form_part" id="todo_ttl">
+            <input type="text" name="todo_title" v-model="title" placeholder="Title">
+          </div>
+
+          <div class="form_part" id="todo_desc">
+            <input type="text" name="todo_description" v-model="description" placeholder="Descriptions">
+          </div>
+
+          <div class="form_part">
+            <input type="date" name="due" id="due" v-model="duedate" placeholder="Due Date">
+          </div>
+        </div>
+
+      <button type="submit">Add the task</button>
+    </form>
+
+    <div v-for="todo in todolist" :key="todo.id" class="tasklist">
+      <!-- <h3> {{ todo.title }} </h3> -->
+      <HelloWorld :todo="todo" />
+    </div>
+  </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import { ref } from 'vue'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+  // name: 'App',
+  // components: {
+  //   HelloWorld
+  // }
+
+  setup(){
+    const title = ref('');
+    const description = ref('');
+    const duedate = ref(new Date());
+    var msg = ref('');
+    const todolist = ref([]);
+
+    function addTodo(){
+      if (typeof(duedate.value) != "string" || duedate.value == "" || title.value == "" || description.value == "" ) {
+        msg.value = "In complete Submision. Please Complete First";
+        alert(msg.value);
+      } else {
+        msg.value = "";
+        todolist.value.push({
+          id: todolist.value.length,
+          title: title.value,
+          desc: description.value,
+          duedate: duedate.value,
+        });
+        title.value = "";
+        description.value = "";
+        duedate.value = "";
+      }
+    }
+
+    return{
+      title,
+      description,
+      duedate,
+      msg,
+      todolist,
+      addTodo,
+      HelloWorld,
+    }
+  },
+
 }
 </script>
 
@@ -23,4 +84,7 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+
+
 </style>
