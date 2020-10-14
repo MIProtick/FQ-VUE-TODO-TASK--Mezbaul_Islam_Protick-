@@ -86,7 +86,7 @@ export default {
 }
 
 form {
-  padding: 15px;
+  padding: 15px 45px;
   margin: 0 auto;
 }
 
@@ -135,7 +135,7 @@ button:active {
 }
 
 .container{
-  width: 60%;
+  width: 70%;
   margin: auto;
 }
 
