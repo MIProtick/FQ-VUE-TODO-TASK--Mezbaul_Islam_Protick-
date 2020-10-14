@@ -15,7 +15,7 @@
             <input type="date" name="due" id="due" v-model="duedate" placeholder="Due Date">
           </div>
         </div>
-
+        <div v-if="msg.state" class="errmsg">{{ msg.val }}</div>
       <button type="submit">Add the task</button>
     </form>
 
@@ -40,24 +40,30 @@ export default {
     const title = ref('');
     const description = ref('');
     const duedate = ref(new Date());
-    var msg = ref('');
+    var msg = ref({state:false, val:""});
     const todolist = ref([]);
 
     function addTodo(){
       if (typeof(duedate.value) != "string" || duedate.value == "" || title.value == "" || description.value == "" ) {
-        msg.value = "In complete Submision. Please Complete First";
-        alert(msg.value);
+        msg.value = {state:true, val:"Incomplete Submision. Please Complete First"};
       } else {
-        msg.value = "";
-        todolist.value.push({
-          id: todolist.value.length,
-          title: title.value,
-          desc: description.value,
-          duedate: duedate.value,
-        });
-        title.value = "";
-        description.value = "";
-        duedate.value = "";
+        let prevdate = new Date();
+        prevdate = prevdate.getFullYear()+'-'+(prevdate.getMonth()+1)+'-'+(prevdate.getDate()-1);
+        if (new Date(duedate.value).valueOf() <= new Date(prevdate).valueOf()) {
+          msg.value = {state:true, val:"Date can't be previous."};
+        } else {
+          msg.value = {state:false, val:""};
+          todolist.value.push({
+            id: todolist.value.length,
+            title: title.value,
+            desc: description.value,
+            duedate: duedate.value,
+          });
+          title.value = "";
+          description.value = "";
+          duedate.value = "";
+        }
+        
       }
     }
 
@@ -148,6 +154,13 @@ button:active {
 .form_part{
   display: inline;
   padding: 0 5px;
+}
+
+.errmsg{
+  margin: 10px auto 0 auto;
+  color: indianred;
+  font-style: italic;
+  font-size: 12px;
 }
 
 #todo_desc{
