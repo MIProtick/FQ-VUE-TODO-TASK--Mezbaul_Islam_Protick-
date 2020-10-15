@@ -9,7 +9,7 @@
       <div class="description_show">
         <h6>Description</h6>
         <div>{{ todo.desc }}</div>
-        <button class="delete">Delete</button>
+        <button class="delete" @click="removetodo(index)" >Delete</button>
       </div>
     </div>
 
@@ -19,8 +19,17 @@
 <script>
 export default {
   name: 'HelloWorld',
+  emits:{
+	'rmtodo': null,
+  },
   props: {
-    todo: Object,
+	todo: Object,
+	index: Number,
+  },
+  methods: {
+	removetodo(index){
+		this.$emit('rmtodo',index)
+	}
   }
 }
 </script>
@@ -77,7 +86,8 @@ export default {
 
 .description_show h6 {
 	opacity: 0.5;
-  margin-bottom: 5px;
+	margin-bottom: 5px;
+	text-align: left;
 }
 
 .description_show div{

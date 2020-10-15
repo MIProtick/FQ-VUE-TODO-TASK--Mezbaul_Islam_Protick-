@@ -19,9 +19,9 @@
       <button type="submit">Add the task</button>
     </form>
 
-    <div v-for="todo in todolist" :key="todo.id" class="tasklist">
+    <div v-for="(todo, index) in todolist" :key="todo.id" class="tasklist">
       <!-- <h3> {{ todo.title }} </h3> -->
-      <HelloWorld :todo="todo" />
+      <HelloWorld :todo="todo" :index="index" @rmtodo="removetodo($event)" />
     </div>
   </div>
 </template>
@@ -59,12 +59,21 @@ export default {
             desc: description.value,
             duedate: duedate.value,
           });
+          let p = todolist.value.sort((a,b)=>{
+            return a.duedate>b.duedate
+          });
+          todolist.value = p.map((e)=>e);
+
           title.value = "";
           description.value = "";
           duedate.value = "";
         }
         
       }
+    }
+
+    function removetodo(ev){
+      todolist.value.splice(ev, 1);
     }
 
     return{
@@ -74,6 +83,7 @@ export default {
       msg,
       todolist,
       addTodo,
+      removetodo,
       HelloWorld,
     }
   },
