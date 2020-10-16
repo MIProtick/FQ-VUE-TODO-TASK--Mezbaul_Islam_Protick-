@@ -9,16 +9,17 @@
       <div class="description_show">
         <h6>Description</h6>
         <div>{{ todo.desc }}</div>
-        <button class="delete" @click="removetodo(index)" >Delete</button>
+        <button class="delete" @click.prevent="removetodo(index)" >Delete</button>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
+// import emitter from '../eventbus'
+
 export default {
-  name: 'HelloWorld',
+  name: 'Listing',
   emits:{
 	'rmtodo': null,
   },
