@@ -1,6 +1,3 @@
-// import mitt from 'mitt'
-// export const emitter = mitt()
-
 class Event{
     constructor(){
         this.events = {};

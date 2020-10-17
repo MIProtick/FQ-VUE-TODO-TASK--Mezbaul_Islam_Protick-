@@ -22,7 +22,6 @@
 </template>
 
 <script>
-// import emitter from '../eventbus'
 
 export default {
   name: 'Modal',

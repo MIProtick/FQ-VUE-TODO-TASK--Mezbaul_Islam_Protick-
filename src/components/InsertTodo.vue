@@ -23,7 +23,6 @@
 
 <script>
 import { ref } from 'vue'
-// import emitter from '../eventbus'
 
 
 export default {
