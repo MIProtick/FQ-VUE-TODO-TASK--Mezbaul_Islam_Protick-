@@ -1,4 +1,6 @@
-# todotask
+# FQ-VUE-TODO-TASK-(Mezbaul_Islam_Protick)
+
+A simple todo task manager web app based on Vue3-cli.
 
 ## Project setup
 ```
