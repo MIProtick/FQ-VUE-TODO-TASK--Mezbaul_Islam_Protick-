@@ -3,15 +3,17 @@
     <div class="todo_head">Tasks To-Do</div>
     <InsertTodo @addtd="addtodo($event)" />
     <div v-for="(todo, index) in todolist" :key="todo.id" class="tasklist">
-      <Listing :todo="todo" :index="index" @rmtodo="removetodo($event)" />
+      <Listing :todo="todo" :index="index" @rmtodo="removetodo($event)" @shwtodo="showtodo($event)" />
     </div>
   </div>
+  <Modal id="modal"  @closemdl="closemodal()" />
   
 </template>
 
 <script>
 import InsertTodo from './components/InsertTodo.vue'
 import Listing from './components/Listing.vue'
+import Modal from './components/Modal.vue'
 import { ref } from 'vue'
 
 
@@ -32,6 +34,13 @@ export default {
   },
   setup(){
     const todolist = ref([]);
+    var p = []
+    var zoom_indx = NaN;
+
+    if(localStorage.todolist){
+      todolist.value = JSON.parse(localStorage.todolist);
+      p = todolist.value.map((e)=>e)
+    }
 
     function addtodo(todo){
       todolist.value.push({
@@ -40,22 +49,43 @@ export default {
         desc: todo.description,
         duedate: todo.duedate,
       });
-      let p = todolist.value.sort((a,b)=>{
+      p = todolist.value.sort((a,b)=>{
           return a.duedate>b.duedate
       });
       todolist.value = p.map((e)=>e);
     }
 
-    function removetodo(ev){
-      todolist.value.splice(ev, 1);
+    function removetodo(index){
+      todolist.value.splice(index, 1);
+      delete p[index]
+    }
+
+    function closemodal(){
+      document.getElementById('modal').style.display = 'none';
+    }
+
+    function showtodo(index){
+      console.log('rcv->'+p[index]);
+      if(p[index]){
+        // console.log('rcv->'+index);
+        zoom_indx = index;
+        document.getElementById('modal').style.display = 'flex';
+      }
+      else{
+        p.splice(index, 1);
+      }
     }
 
     return{
       todolist,
+      zoom_indx,
       addtodo,
       removetodo,
       InsertTodo,
+      showtodo,
+      closemodal,
       Listing,
+      Modal,
     }
   },
 };
@@ -82,5 +112,9 @@ export default {
 .todo_head{
   font-size: 30px;
   font-family:Sansita Swashed;
+}
+
+#modal{
+  display: none;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div class="todo_card">
+    <div class="todo_card" @click="showtodo(index)">
       <div class="ttl_show">
         <h6>Title</h6>
         <h4>{{ todo.title }}</h4>
@@ -22,6 +22,7 @@ export default {
   name: 'Listing',
   emits:{
 	'rmtodo': null,
+	'shwtodo': null,
   },
   props: {
 	todo: Object,
@@ -29,7 +30,12 @@ export default {
   },
   methods: {
 	removetodo(index){
-		this.$emit('rmtodo',index)
+		console.log('rm-> '+index);
+		this.$emit('rmtodo',index);
+	},
+	showtodo(index){
+		console.log('sh-> '+index);
+		this.$emit('shwtodo', index);
 	}
   }
 }
