@@ -70,7 +70,7 @@ export default {
     }
 
     function showtodo(index){
-      console.log('rcv->'+index);
+      
       if(p[index]){
         zoom_indx.value = index;
         document.getElementById('modal').style.display = 'block';
