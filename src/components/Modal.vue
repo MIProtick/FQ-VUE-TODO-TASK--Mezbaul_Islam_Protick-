@@ -37,7 +37,6 @@ export default {
     },
   },
   setup(){
-
     window.onclick = function(event) {
       var modalbg = document.getElementsByClassName("modal_bg")[0];
       if (event.target == modalbg) {
