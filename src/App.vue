@@ -1,12 +1,15 @@
 <template>
-  <div class="container">
+  <div class="container" id="cntnr">
     <div class="todo_head">Tasks To-Do</div>
     <InsertTodo @addtd="addtodo($event)" />
     <div v-for="(todo, index) in todolist" :key="todo.id" class="tasklist">
       <Listing :todo="todo" :index="index" @rmtodo="removetodo($event)" @shwtodo="showtodo($event)" />
     </div>
   </div>
-  <Modal id="modal"  @closemdl="closemodal()" />
+  <div>
+    <Modal id="modal"  @closemdl="closemodal()" :todo="todolist[zoom_indx]" />
+  </div>
+  
   
 </template>
 
@@ -35,7 +38,7 @@ export default {
   setup(){
     const todolist = ref([]);
     var p = []
-    var zoom_indx = NaN;
+    var zoom_indx = ref(0);
 
     if(localStorage.todolist){
       todolist.value = JSON.parse(localStorage.todolist);
@@ -62,14 +65,16 @@ export default {
 
     function closemodal(){
       document.getElementById('modal').style.display = 'none';
+      document.getElementById('cntnr').style.filter = "blur(0px)"
+
     }
 
     function showtodo(index){
-      console.log('rcv->'+p[index]);
+      console.log('rcv->'+index);
       if(p[index]){
-        // console.log('rcv->'+index);
-        zoom_indx = index;
-        document.getElementById('modal').style.display = 'flex';
+        zoom_indx.value = index;
+        document.getElementById('modal').style.display = 'block';
+        document.getElementById('cntnr').style.filter = "blur(5px)"
       }
       else{
         p.splice(index, 1);

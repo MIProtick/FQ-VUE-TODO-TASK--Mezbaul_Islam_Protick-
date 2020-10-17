@@ -1,17 +1,18 @@
 <template>
-    <div id="modal_bg">
+    <div class="modal_bg">
       <div id="mymodal_box" class="modal_box">
           <div class="line-numbers"></div>
           <div class="modal-content">
           <div class="modal_1st">
-              <div class="modal_id"><div>Id <br> '1' </div> </div>
+              <div class="modal_id"><div>Id <br> {{ todo.id }} </div> </div>
               <div class = "modal_1st_2nd">
-              <div class="modal_ttl"> 'ttl' </div>
-              <div class="modal_ttl">Due : 'date' </div>
+              <div class="modal_ttl"> {{ todo.title }} </div>
+              <div class="modal_ttl">Due : {{ todo.duedate }} </div>
               </div>
           </div>
           <div class="modal_2nd">
-              <div> description </div>
+            <div>Description: </div>
+              <div> {{ todo.desc }} </div>
           </div>
           
           </div>
@@ -29,7 +30,7 @@ export default {
 	'closemdl': null,
   },
   props: {
-    // todo: Object,
+    todo: Object,
   },
   methods: {
     closemodal(){
@@ -37,13 +38,7 @@ export default {
     },
   },
   setup(){
-    var modal = document.getElementById("mymodal_box");
-    // var close = document.getElementsById("clse");
-    
-    // close.onclick = function() {
-    //   // modal.style.display = "none";
-    //   closemodal();
-    // }
+    var modal = document.getElementById("modal_bg");
 
     window.onclick = function(event) {
       if (event.target == modal) {
@@ -122,7 +117,12 @@ justify-content: space-between;
   min-height: 80px;
   overflow: hidden;
 }
-.modal_2nd div{
+.modal_2nd div:nth-child(1){
+  text-align: center;  
+  color: rgba(21,50,101,0.5);
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+.modal_2nd div:nth-child(2){
   text-align: center;
   color: rgba(21,50,101,0.8);
   font-family: "Comic Sans MS", "Comic Sans", cursive;
@@ -145,7 +145,7 @@ justify-content: space-between;
   cursor: pointer;
 }
 
-#modal_bg{
+.modal_bg{
   display: none;
   width: 100vw;
   height: 100vh;
@@ -153,8 +153,8 @@ justify-content: space-between;
   top: 0;
   position: fixed;
   left: 0;
-  z-index: -1;
-  background-color: rgba(100, 0, 0, 0.2);
+  z-index: 1;
+  background-color: rgba(227, 218, 184, 0.1);
 }
 
 </style>
