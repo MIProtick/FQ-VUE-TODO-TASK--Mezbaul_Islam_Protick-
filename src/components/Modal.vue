@@ -39,7 +39,7 @@ export default {
   },
   setup(){
     window.onclick = function(event) {
-      var modalbg = document.getElementById("modal");
+      var modalbg = document.getElementsByClassName("modal_bg")[0];
       if (event.target == modalbg) {
         document.getElementById('modal').style.display = 'none';
         document.getElementById('cntnr').style.filter = "blur(0px)"
