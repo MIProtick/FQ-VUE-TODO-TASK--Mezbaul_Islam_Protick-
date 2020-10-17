@@ -17,11 +17,23 @@ import { ref } from 'vue'
 
 export default {
   name: 'App',
+  mounted(){
+    if(localStorage.todolist){
+      this.todolist = JSON.parse(localStorage.todolist);
+    }
+  },
+  watch:{
+    todolist:{
+      handler(newTodolist){
+        localStorage.todolist = JSON.stringify(newTodolist);
+      },
+      deep:true
+    }
+  },
   setup(){
     const todolist = ref([]);
 
     function addtodo(todo){
-      console.log('-->'+todo.title);
       todolist.value.push({
         id: todolist.value.length,
         title: todo.title,
@@ -35,7 +47,6 @@ export default {
     }
 
     function removetodo(ev){
-      console.log('-->'+ev);
       todolist.value.splice(ev, 1);
     }
 

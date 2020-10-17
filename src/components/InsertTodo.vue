@@ -1,6 +1,6 @@
 <template>
-    <!-- <form @submit.prevent="addTodo"> -->
-    <form >
+    <form @submit.prevent="send(addTodo())">
+    <!-- <form > -->
         <div class="form_section">
             <div class="form_part" id="todo_ttl">
             <input type="text" name="todo_title" v-model="title" placeholder="Title">
@@ -15,7 +15,8 @@
             </div>
         </div>
         <div v-if="msg.state" class="errmsg">{{ msg.val }}</div>
-        <button type="submit" @click.prevent="send(addTodo())">Add the task</button>
+        <button type="submit">Add the task</button>
+        <!-- <button type="submit" @click.prevent="send(addTodo())">Add the task</button> -->
     </form>
 
 </template>
