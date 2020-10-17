@@ -30,11 +30,9 @@ export default {
   },
   methods: {
 	removetodo(index){
-		console.log('rm-> '+index);
 		this.$emit('rmtodo',index);
 	},
 	showtodo(index){
-		console.log('sh-> '+index);
 		this.$emit('shwtodo', index);
 	}
   }
